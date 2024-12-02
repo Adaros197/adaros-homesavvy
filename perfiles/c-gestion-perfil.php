@@ -7,6 +7,9 @@
 </head>
 <body>
     <h1>Gestión de Perfil - Cliente</h1>
+    <form action="../auth/logout.php" method="POST">
+        <button type="submit">Cerrar Sesión</button>
+    </form>
 
     <?php
     session_start();

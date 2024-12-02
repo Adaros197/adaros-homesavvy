@@ -6,7 +6,13 @@
     <title>Gestión de Perfil - Profesional</title>
 </head>
 <body>
+    <?php include '../includes/navbar-profesional.php'; ?>
     <h1>Gestión de Perfil - Profesional</h1>
+
+    <form action="../auth/logout.php" method="POST">
+        <button type="submit">Cerrar Sesión</button>
+    </form>
+    
     <form action="p-gestion-perfil.php" method="POST" id="gestion-profesional-form">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>

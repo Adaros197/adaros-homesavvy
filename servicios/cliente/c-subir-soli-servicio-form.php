@@ -6,6 +6,7 @@
     <title>Subir Solicitud de Servicio</title>
 </head>
 <body>
+    <?php include '../../includes/navbar-cliente.php'; ?>
     <h1>Subir Solicitud de Servicio</h1>
 
     <form action="c-subir-soli-servicio.php" method="POST" id="subir-solicitud-form" enctype="multipart/form-data">

@@ -6,6 +6,7 @@
     <title>Subir Solicitud de Trabajo</title>
 </head>
 <body>
+    <?php include '../../includes/navbar-profesional.php'; ?>
     <h1>Subir Solicitud de Trabajo</h1>
 
     <form action="p-subir-soli-trabajo.php" method="POST" enctype="multipart/form-data">

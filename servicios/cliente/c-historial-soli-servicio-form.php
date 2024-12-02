@@ -6,6 +6,7 @@
     <title>Historial de Solicitudes</title>
 </head>
 <body>
+    <?php include '../../includes/navbar-cliente.php'; ?>
     <h1>Historial de Solicitudes de Servicio</h1>
 
     <div id="historial">

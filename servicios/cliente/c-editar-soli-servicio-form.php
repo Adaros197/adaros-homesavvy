@@ -37,7 +37,7 @@
     }
     ?>
 
-    <form action="c-editar-soli-servicio-procesar.php" method="POST" enctype="multipart/form-data">
+    <form action="c-editar-soli-servicio.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id_solicitud" value="<?php echo $solicitud['id_solicitud_servicio']; ?>">
 
         <label for="titulo">Título del Servicio:</label>

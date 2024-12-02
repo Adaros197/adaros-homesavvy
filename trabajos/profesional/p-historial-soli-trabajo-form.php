@@ -6,6 +6,7 @@
     <title>Historial de Solicitudes de Trabajo</title>
 </head>
 <body>
+    <?php include '../../includes/navbar-profesional.php'; ?>
     <h1>Historial de Solicitudes de Trabajo</h1>
 
     <div id="historial">

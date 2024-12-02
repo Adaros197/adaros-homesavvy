@@ -7,6 +7,9 @@
 </head>
 <body>
     <h1>Gestión de Perfil - Profesional</h1>
+    <form action="logout.php" method="POST">
+        <button type="submit">Cerrar Sesión</button>
+    </form>
 
     <?php
     session_start();

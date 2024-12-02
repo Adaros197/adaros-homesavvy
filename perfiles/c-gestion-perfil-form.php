@@ -6,7 +6,13 @@
     <title>Gestión de Perfil - Cliente</title>
 </head>
 <body>
+    <?php include '../includes/navbar-cliente.php'; ?>
     <h1>Gestión de Perfil - Cliente</h1>
+
+    <form action="../auth/logout.php" method="POST">
+        <button type="submit">Cerrar Sesión</button>
+    </form>
+
     <form action="c-gestion-perfil.php" method="POST" id="gestion-cliente-form">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
