@@ -91,7 +91,7 @@
         }
 
         async function editarSolicitud(idSolicitud) {
-            window.location.href = `p-editar-soli-trabajo.html?id_solicitud=${idSolicitud}`;
+            window.location.href = `p-editar-soli-trabajo-form.php?id_solicitud=${idSolicitud}`;
         }
 
         async function eliminarSolicitud(idSolicitud) {

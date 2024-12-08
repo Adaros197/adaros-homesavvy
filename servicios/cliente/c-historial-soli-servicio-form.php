@@ -58,14 +58,13 @@
             try {
                 const response = await fetch(`c-ver-postulaciones.php?id_solicitud=${idSolicitud}`);
                 const data = await response.json();
-
                 if (data.success) {
                     let html = `<h3>Postulaciones para la Solicitud ${idSolicitud}</h3><ul>`;
                     data.postulaciones.forEach(postulacion => {
                         html += `
                             <li>
                                 <p><strong>Profesional:</strong> ${postulacion.nombre}</p>
-                                <p><strong>Propuesta:</strong> ${postulacion.descripcion}</p>
+                                <p><strong>Estado:</strong> ${postulacion.estado}</p>
                                 <button onclick="aceptarPostulacion(${postulacion.id_postulacion_servicio})">Aceptar</button>
                                 <button onclick="rechazarPostulacion(${postulacion.id_postulacion_servicio})">Rechazar</button>
                             </li>
@@ -99,7 +98,7 @@
 
         // Editar una solicitud
         function editarSolicitud(idSolicitud) {
-            window.location.href = `c-editar-soli-servicio.html?id_solicitud=${idSolicitud}`;
+            window.location.href = `c-editar-soli-servicio-form.php?id_solicitud=${idSolicitud}`;
         }
 
         // Eliminar una solicitud

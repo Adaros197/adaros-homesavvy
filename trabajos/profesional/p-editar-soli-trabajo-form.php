@@ -40,7 +40,7 @@
     }
     ?>
 
-    <form action="p-editar-soli-trabajo-procesar.php" method="POST" enctype="multipart/form-data">
+    <form action="p-editar-soli-trabajo.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id_solicitud" value="<?php echo $solicitud['id_solicitud_trabajo']; ?>">
 
         <label for="titulo">Título del Trabajo:</label>

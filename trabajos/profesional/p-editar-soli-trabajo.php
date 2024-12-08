@@ -43,4 +43,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo json_encode(['success' => false, 'message' => 'Error al actualizar la solicitud: ' . mysqli_error($conexion)]);
     }
 }
-?>

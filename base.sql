@@ -1,11 +1,10 @@
 DROP DATABASE IF EXISTS Homesavvy;
-CREATE DATABASE Homesavvy;
+CREATE DATABASE IF NOT EXISTS Homesavvy;
 USE Homesavvy;
-
 
 -- Tabla Cliente
 CREATE TABLE Cliente (
-    id_cliente INT PRIMARY KEY,
+    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(50),
     apellido_p VARCHAR(50),
     apellido_m VARCHAR(50),
@@ -20,7 +19,7 @@ CREATE TABLE Cliente (
 
 -- Tabla Profesional
 CREATE TABLE Profesional (
-    id_profesional INT PRIMARY KEY,
+    id_profesional INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(50),
     apellido_p VARCHAR(50),
     apellido_m VARCHAR(50),
@@ -32,7 +31,7 @@ CREATE TABLE Profesional (
     comprobante_domicilio BLOB,
     foto_perfil BLOB,
     profesion VARCHAR(20),
-    rfc BLOB,
+    rfc VARCHAR(20),
     curriculum BLOB,
     antecedentes BLOB,
     cartas_recomendacion BLOB,
@@ -41,9 +40,13 @@ CREATE TABLE Profesional (
 
 -- Tabla SolicitudServicio
 CREATE TABLE SolicitudServicio (
-    id_solicitud_servicio INT PRIMARY KEY,
+    id_solicitud_servicio INT PRIMARY KEY AUTO_INCREMENT,
     id_cliente INT,
+    titulo VARCHAR(100),
     descripcion TEXT,
+    horarios VARCHAR(100),
+    metodo_pago VARCHAR(50),
+    foto BLOB,
     estado VARCHAR(20) DEFAULT 'activa',
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
@@ -51,9 +54,13 @@ CREATE TABLE SolicitudServicio (
 
 -- Tabla SolicitudTrabajo
 CREATE TABLE SolicitudTrabajo (
-    id_solicitud_trabajo INT PRIMARY KEY,
+    id_solicitud_trabajo INT PRIMARY KEY AUTO_INCREMENT,
     id_profesional INT,
+    titulo VARCHAR(100),
     descripcion TEXT,
+    categoria VARCHAR(50),
+    tarifa DECIMAL(10, 2),
+    foto BLOB,
     estado VARCHAR(20) DEFAULT 'activa',
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_profesional) REFERENCES Profesional(id_profesional)
@@ -61,7 +68,7 @@ CREATE TABLE SolicitudTrabajo (
 
 -- Tabla PostulacionServicio
 CREATE TABLE PostulacionServicio (
-    id_postulacion_servicio INT PRIMARY KEY,
+    id_postulacion_servicio INT PRIMARY KEY AUTO_INCREMENT,
     id_solicitud_servicio INT,
     id_profesional INT,
     estado VARCHAR(20) DEFAULT 'pendiente',
@@ -72,7 +79,7 @@ CREATE TABLE PostulacionServicio (
 
 -- Tabla PeticionTrabajo
 CREATE TABLE PeticionTrabajo (
-    id_peticion_trabajo INT PRIMARY KEY,
+    id_peticion_trabajo INT PRIMARY KEY AUTO_INCREMENT,
     id_solicitud_trabajo INT,
     id_cliente INT,
     estado VARCHAR(20) DEFAULT 'pendiente',
@@ -80,3 +87,27 @@ CREATE TABLE PeticionTrabajo (
     FOREIGN KEY (id_solicitud_trabajo) REFERENCES SolicitudTrabajo(id_solicitud_trabajo),
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
 );
+
+-- Insertar un cliente
+INSERT INTO Cliente (nombre, apellido_p, apellido_m, numero, email, direccion, contraseña)
+VALUES ('Juan', 'Pérez', 'García', '5551234567', 'juan.perez@example.com', 'Calle Falsa 123', 'password123');
+
+-- Insertar un profesional
+INSERT INTO Profesional (nombre, apellido_p, apellido_m, numero, email, direccion, contraseña, profesion, rfc)
+VALUES ('Ana', 'López', 'Martínez', '5557654321', 'ana.lopez@example.com', 'Avenida Siempre Viva 456', 'password456', 'Electricista', 'RFC123456789');
+
+-- Insertar una solicitud de servicio
+INSERT INTO SolicitudServicio (id_cliente, titulo, descripcion, horarios, metodo_pago, estado)
+VALUES (1, 'Reparación de tuberías', 'Necesito reparar las tuberías del baño', 'Lunes a Viernes, 9am - 5pm', 'Efectivo', 'activa');
+
+-- Insertar una solicitud de trabajo
+INSERT INTO SolicitudTrabajo (id_profesional, titulo, descripcion, categoria, tarifa, estado)
+VALUES (1, 'Instalación de sistema eléctrico', 'Instalación completa de sistema eléctrico en una casa nueva', 'Electricidad', 1500.00, 'activa');
+
+-- Insertar una postulación de servicio
+INSERT INTO PostulacionServicio (id_solicitud_servicio, id_profesional, estado)
+VALUES (1, 1, 'pendiente');
+
+-- Insertar una petición de trabajo
+INSERT INTO PeticionTrabajo (id_solicitud_trabajo, id_cliente, estado)
+VALUES (1, 1, 'pendiente');
