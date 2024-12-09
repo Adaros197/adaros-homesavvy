@@ -21,13 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $metodo_pago = mysqli_real_escape_string($conexion, $_POST['metodo_pago']);
 
     // Procesar nueva foto si se subió
-    $foto = null;
     if (!empty($_FILES['foto']['name'])) {
-        $foto = "uploads/servicios/" . basename($_FILES['foto']['name']);
-        move_uploaded_file($_FILES['foto']['tmp_name'], "../../" . $foto);
+        $extension = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+        $ruta_foto = "uploads/servicios/$id_solicitud.$extension";
+        if (!move_uploaded_file($_FILES['foto']['tmp_name'], "../../$ruta_foto")) {
+            die(json_encode(['error' => 'Error al mover el archivo de foto']));
+        }
 
         // Actualizar foto en la base de datos
-        $query = "UPDATE SolicitudServicio SET foto = '$foto' WHERE id_solicitud_servicio = '$id_solicitud' AND id_cliente = '$cliente_id'";
+        $query = "UPDATE SolicitudServicio SET foto = '$ruta_foto' WHERE id_solicitud_servicio = '$id_solicitud' AND id_cliente = '$cliente_id'";
         mysqli_query($conexion, $query);
     }
 

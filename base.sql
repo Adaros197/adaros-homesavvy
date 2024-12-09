@@ -12,9 +12,9 @@ CREATE TABLE Cliente (
     email VARCHAR(100),
     direccion VARCHAR(200),
     contraseña VARCHAR(100),
-    ine BLOB,
-    comprobante_domicilio BLOB,
-    foto_perfil BLOB
+    ine VARCHAR(500),
+    comprobante_domicilio VARCHAR(500),
+    foto_perfil VARCHAR(500)
 );
 
 -- Tabla Profesional
@@ -27,15 +27,23 @@ CREATE TABLE Profesional (
     email VARCHAR(100),
     direccion VARCHAR(200),
     contraseña VARCHAR(100),
-    ine BLOB,
-    comprobante_domicilio BLOB,
-    foto_perfil BLOB,
+    ine VARCHAR(500),
+    comprobante_domicilio VARCHAR(500),
+    foto_perfil VARCHAR(500),
     profesion VARCHAR(20),
     rfc VARCHAR(20),
-    curriculum BLOB,
-    antecedentes BLOB,
-    cartas_recomendacion BLOB,
-    constancia_situacion_fiscal BLOB
+    curriculum VARCHAR(500),
+    antecedentes VARCHAR(500),
+    cartas_recomendacion VARCHAR(500),
+    constancia_situacion_fiscal VARCHAR(500)
+);
+
+-- Tabla Admin
+CREATE TABLE Admin (
+    id_admin INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    email VARCHAR(100),
+    contraseña VARCHAR(100)
 );
 
 -- Tabla SolicitudServicio
@@ -46,10 +54,10 @@ CREATE TABLE SolicitudServicio (
     descripcion TEXT,
     horarios VARCHAR(100),
     metodo_pago VARCHAR(50),
-    foto BLOB,
+    foto VARCHAR(500),
     estado VARCHAR(20) DEFAULT 'activa',
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente) ON DELETE CASCADE
 );
 
 -- Tabla SolicitudTrabajo
@@ -60,10 +68,10 @@ CREATE TABLE SolicitudTrabajo (
     descripcion TEXT,
     categoria VARCHAR(50),
     tarifa DECIMAL(10, 2),
-    foto BLOB,
+    foto VARCHAR(500),
     estado VARCHAR(20) DEFAULT 'activa',
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_profesional) REFERENCES Profesional(id_profesional)
+    FOREIGN KEY (id_profesional) REFERENCES Profesional(id_profesional) ON DELETE CASCADE
 );
 
 -- Tabla PostulacionServicio
@@ -73,8 +81,8 @@ CREATE TABLE PostulacionServicio (
     id_profesional INT,
     estado VARCHAR(20) DEFAULT 'pendiente',
     fecha_postulacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_solicitud_servicio) REFERENCES SolicitudServicio(id_solicitud_servicio),
-    FOREIGN KEY (id_profesional) REFERENCES Profesional(id_profesional)
+    FOREIGN KEY (id_solicitud_servicio) REFERENCES SolicitudServicio(id_solicitud_servicio) ON DELETE CASCADE,
+    FOREIGN KEY (id_profesional) REFERENCES Profesional(id_profesional) ON DELETE CASCADE
 );
 
 -- Tabla PeticionTrabajo
@@ -84,8 +92,8 @@ CREATE TABLE PeticionTrabajo (
     id_cliente INT,
     estado VARCHAR(20) DEFAULT 'pendiente',
     fecha_peticion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_solicitud_trabajo) REFERENCES SolicitudTrabajo(id_solicitud_trabajo),
-    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+    FOREIGN KEY (id_solicitud_trabajo) REFERENCES SolicitudTrabajo(id_solicitud_trabajo) ON DELETE CASCADE,
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente) ON DELETE CASCADE
 );
 
 -- Insertar un cliente
@@ -95,6 +103,10 @@ VALUES ('Juan', 'Pérez', 'García', '5551234567', 'juan.perez@example.com', 'Ca
 -- Insertar un profesional
 INSERT INTO Profesional (nombre, apellido_p, apellido_m, numero, email, direccion, contraseña, profesion, rfc)
 VALUES ('Ana', 'López', 'Martínez', '5557654321', 'ana.lopez@example.com', 'Avenida Siempre Viva 456', 'password456', 'Electricista', 'RFC123456789');
+
+-- Insertar un admin
+INSERT INTO Admin (nombre, email, contraseña)
+VALUES ('Admin', 'admin@example.com', 'admin');
 
 -- Insertar una solicitud de servicio
 INSERT INTO SolicitudServicio (id_cliente, titulo, descripcion, horarios, metodo_pago, estado)

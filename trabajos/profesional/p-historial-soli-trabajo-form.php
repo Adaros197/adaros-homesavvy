@@ -30,6 +30,11 @@
                                 <p><strong>Categoría:</strong> ${solicitud.categoria}</p>
                                 <p><strong>Tarifa:</strong> ${solicitud.tarifa}</p>
                                 <p><strong>Estado:</strong> ${solicitud.estado}</p>
+                                ${
+                                    solicitud.foto
+                                    ? `<img src="../../${solicitud.foto}" alt="Foto del trabajo" style="max-width: 200px;">`
+                                    : "<p>Sin imagen</p>"
+                                }
                                 <button onclick="verPeticiones(${solicitud.id_solicitud_trabajo})">Ver Peticiones</button>
                                 <button onclick="editarSolicitud(${solicitud.id_solicitud_trabajo})">Editar</button>
                                 <button onclick="eliminarSolicitud(${solicitud.id_solicitud_trabajo})">Eliminar</button>

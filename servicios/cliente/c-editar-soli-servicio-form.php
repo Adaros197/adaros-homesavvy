@@ -53,7 +53,7 @@
         <br><br>
         <?php if ($solicitud['foto']): ?>
             <p>Foto actual:</p>
-            <img src="../<?php echo $solicitud['foto']; ?>" alt="Foto del servicio" style="max-width: 200px;">
+            <img src="../../<?php echo $solicitud['foto']; ?>" alt="Foto del servicio" style="max-width: 200px;">
         <?php endif; ?>
         <br><br>
 

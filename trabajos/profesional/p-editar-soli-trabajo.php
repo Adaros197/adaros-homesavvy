@@ -21,13 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tarifa = mysqli_real_escape_string($conexion, $_POST['tarifa']);
 
     // Procesar nueva foto si se subió
-    $foto = null;
     if (!empty($_FILES['foto']['name'])) {
-        $foto = "uploads/trabajos/" . basename($_FILES['foto']['name']);
-        move_uploaded_file($_FILES['foto']['tmp_name'], "../../" . $foto);
+        $extension = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+        $ruta_foto = "uploads/trabajos/$id_solicitud.$extension";
+        if (!move_uploaded_file($_FILES['foto']['tmp_name'], "../../$ruta_foto")) {
+            die(json_encode(['error' => 'Error al mover el archivo de foto']));
+        }
 
         // Actualizar la foto en la base de datos
-        $query = "UPDATE SolicitudTrabajo SET foto = '$foto' WHERE id_solicitud_trabajo = '$id_solicitud' AND id_profesional = '$profesional_id'";
+        $query = "UPDATE SolicitudTrabajo SET foto = '$ruta_foto' WHERE id_solicitud_trabajo = '$id_solicitud' AND id_profesional = '$profesional_id'";
         mysqli_query($conexion, $query);
     }
 
@@ -43,3 +45,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo json_encode(['success' => false, 'message' => 'Error al actualizar la solicitud: ' . mysqli_error($conexion)]);
     }
 }
+?>

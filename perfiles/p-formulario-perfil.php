@@ -1,4 +1,4 @@
-<form action="<?php echo basename($_SERVER['PHP_SELF']); ?>" method="POST" id="gestion-perfil-form">
+<form action="<?php echo basename($_SERVER['PHP_SELF']); ?>" method="POST" id="gestion-perfil-form" enctype="multipart/form-data">
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" name="nombre" value="<?php echo isset($user['nombre']) ? $user['nombre'] : ''; ?>" required>
     <br><br>
@@ -15,6 +15,10 @@
     <input type="email" id="email" name="email" value="<?php echo isset($user['email']) ? $user['email'] : ''; ?>" required>
     <br><br>
 
+    // para contraseña
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" name="password" placeholder="Ingrese su nueva contraseña">
+
     <label for="numero">Número de Teléfono:</label>
     <input type="tel" id="numero" name="numero" value="<?php echo isset($user['numero']) ? $user['numero'] : ''; ?>" required>
     <br><br>
@@ -29,6 +33,15 @@
 
     <label for="rfc">RFC:</label>
     <input type="text" id="rfc" name="rfc" value="<?php echo isset($user['rfc']) ? $user['rfc'] : ''; ?>" required>
+    <br><br>
+
+    <label for="foto_perfil">Foto de Perfil (opcional):</label>
+    <input type="file" id="foto_perfil" name="foto_perfil" accept="image/*">
+    <br><br>
+    <?php if ($user['foto_perfil']): ?>
+        <p>Foto actual:</p>
+        <img src="../<?php echo $user['foto_perfil']; ?>" alt="Foto de perfil" style="max-width: 200px;">
+    <?php endif; ?>
     <br><br>
 
     <button type="submit">Actualizar Perfil</button>

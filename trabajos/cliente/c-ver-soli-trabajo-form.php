@@ -46,7 +46,7 @@
                                 <p><strong>Tarifa:</strong> ${solicitud.tarifa}</p>
                                 ${
                                     solicitud.foto
-                                    ? `<img src="../${solicitud.foto}" alt="Imagen del trabajo" style="max-width: 200px;">`
+                                    ? `<img src="../../${solicitud.foto}" alt="Imagen del trabajo" style="max-width: 200px;">`
                                     : "<p>Sin imagen</p>"
                                 }
                                 <button onclick="pedirTrabajo(${solicitud.id_solicitud_trabajo})">Pedir Trabajo</button>

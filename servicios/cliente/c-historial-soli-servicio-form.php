@@ -33,7 +33,7 @@
                                 <p><strong>Método de Pago:</strong> ${solicitud.metodo_pago}</p>
                                 ${
                                     solicitud.foto
-                                    ? `<img src="../${solicitud.foto}" alt="Foto del servicio" style="max-width: 200px;">`
+                                    ? `<img src="../../${solicitud.foto}" alt="Foto del servicio" style="max-width: 200px;">`
                                     : "<p>Sin imagen</p>"
                                 }
                                 <button onclick="verPostulaciones(${solicitud.id_solicitud_servicio})">Ver Postulaciones</button>
