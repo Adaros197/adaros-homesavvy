@@ -38,6 +38,7 @@
     <link rel="preload" href="assets/css/theme.min.css" as="style">
     <link rel="stylesheet" href="assets/css/theme.min.css" id="theme-styles">
 
+    
     <link href="assets/css/theme.min.css">
     <style>
      :root,[data-bs-theme="light"]{--cz-primary:#3E93D6;--cz-primary-rgb:62,147,214;--cz-primary-text-emphasis:#257abd;--cz-primary-bg-subtle:#ecf4fb;--cz-primary-border-subtle:#d8e9f7;}[data-bs-theme="dark"]{--cz-primary-text-emphasis:#3186c9;--cz-primary-bg-subtle:#1c2937;--cz-primary-border-subtle:#203548;}.btn-primary{--cz-btn-bg:#3E93D6;--cz-btn-border-color:#3E93D6;--cz-btn-hover-bg:#257abd;--cz-btn-hover-border-color:#257abd;--cz-btn-active-bg:#257abd;--cz-btn-active-border-color:#257abd;--cz-btn-disabled-bg:#3E93D6;--cz-btn-disabled-border-color:#3E93D6;}.btn-outline-primary{--cz-btn-color:#3E93D6;--cz-btn-border-color:#3E93D6;--cz-btn-hover-bg:#3E93D6;--cz-btn-hover-border-color:#3E93D6;--cz-btn-active-bg:#3E93D6;--cz-btn-active-border-color:#3E93D6;--cz-btn-disabled-color:#3E93D6;--cz-btn-disabled-border-color:#3E93D6;}
@@ -96,26 +97,28 @@
               <li class="nav-item me-lg-n2 me-xl-0">
                 <a class="nav-link fs-sm" href="auth/login.html">Iniciar Sesión</a>
               </li>
-              <div class="dropdown-center ">
+              <div class="dropdown-center">
                 <button type="button" class="btn btn-primary rounded-pill dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  Registrate
+                    Regístrate
                 </button>
                 <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" href="auth/c-registro.html">
-                      <i class="ci-home opacity-75 me-2"></i>
-                      Cliente
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="auth/p-registro.html">
-                      <i class="ci-user opacity-75 me-2"></i>
-                      Experto
-                    </a>
-                  </li>
-
+                    <li>
+                        <a class="dropdown-item" href="auth/c-registro.html">
+                            <i class="fas fa-user"></i> Cliente
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="auth/p-registro.html">
+                            <i class="fas fa-toolbox"></i> Profesional
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="auth/a-registro.html">
+                            <i class="fas fa-user-shield"></i> Administrador
+                        </a>
+                    </li>
                 </ul>
-              </div>
+              </div>            
             </ul>
           </div>
         </nav>
