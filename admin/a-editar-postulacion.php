@@ -38,16 +38,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Postulación</title>
+    <title>Editar Postulación - Admin</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: nexa;
+            src: url('../assets/fonts/title.ttf');
+        }
+        body {
+            font-family: nexa;
+        }
+    </style>
 </head>
 <body>
     <?php include '../includes/navbar-admin.php'; ?>
-    <h1>Editar Postulación</h1>
-    <form action="" method="POST">
-        <label for="estado">Estado:</label>
-        <input type="text" id="estado" name="estado" value="<?= $postulacion['estado'] ?>" required>
-        <br><br>
-        <button type="submit">Actualizar Postulación</button>
-    </form>
+    <div class="container mt-5">
+        <h1 class="mb-4" style="color: #ec6cb2;">Editar Postulación</h1>
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) . '?id=' . $id_postulacion_servicio; ?>" method="POST">
+            <div class="mb-3">
+                <label for="estado" class="form-label" style="font-family: nexa;">Estado:</label>
+                <input type="text" id="estado" name="estado" class="form-control" value="<?= htmlspecialchars($postulacion['estado']) ?>" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="background-color: #ec6cb2; border-color: #ec6cb2; font-family: nexa;">Actualizar Postulación</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

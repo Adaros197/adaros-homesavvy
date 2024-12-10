@@ -3,16 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de Solicitudes</title>
+    <title>Historial de Solicitudes de Servicio - Cliente</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: nexa;
+            src: url('../../assets/fonts/title.ttf');
+        }
+        body {
+            font-family: nexa;
+        }
+    </style>
 </head>
 <body>
     <?php include '../../includes/navbar-cliente.php'; ?>
-    <h1>Historial de Solicitudes de Servicio</h1>
-
-    <div id="historial">
-        <!-- Aquí se cargarán las solicitudes mediante AJAX -->
+    <div class="container mt-5">
+        <h1 class="mb-4" style="color: #3e93d6;">Historial de Solicitudes de Servicio</h1>
+        <div id="historial">
+            <!-- Aquí se cargarán las solicitudes mediante AJAX -->
+        </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         // Cargar el historial de solicitudes
         async function cargarHistorial() {

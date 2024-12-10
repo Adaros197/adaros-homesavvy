@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (mysqli_num_rows($result_admin) == 1) {
         $user = mysqli_fetch_assoc($result_admin);
         $_SESSION['admin_id'] = $user['id_admin'];
-        echo json_encode(['success' => true, 'message' => 'Inicio de sesión exitoso como Admin', 'redirect' => '../admin/a-principal.html']);
+        echo json_encode(['success' => true, 'message' => 'Inicio de sesión exitoso como Admin', 'redirect' => '../admin/a-principal.php']);
     } else {
         echo json_encode(['success' => false, 'message' => 'Correo o contraseña incorrectos']);
     }

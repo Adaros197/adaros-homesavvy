@@ -38,31 +38,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Cliente</title>
+    <title>Editar Cliente - Admin</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: nexa;
+            src: url('../assets/fonts/title.ttf');
+        }
+        body {
+            font-family: nexa;
+        }
+    </style>
 </head>
 <body>
     <?php include '../includes/navbar-admin.php'; ?>
-    <h1>Editar Cliente</h1>
-    <form action="" method="POST">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="<?= $cliente['nombre'] ?>" required>
-        <br><br>
-        <label for="apellido_p">Apellido Paterno:</label>
-        <input type="text" id="apellido_p" name="apellido_p" value="<?= $cliente['apellido_p'] ?>" required>
-        <br><br>
-        <label for="apellido_m">Apellido Materno:</label>
-        <input type="text" id="apellido_m" name="apellido_m" value="<?= $cliente['apellido_m'] ?>" required>
-        <br><br>
-        <label for="email">Correo Electrónico:</label>
-        <input type="email" id="email" name="email" value="<?= $cliente['email'] ?>" required>
-        <br><br>
-        <label for="numero">Número de Teléfono:</label>
-        <input type="tel" id="numero" name="numero" value="<?= $cliente['numero'] ?>" required>
-        <br><br>
-        <label for="direccion">Dirección:</label>
-        <textarea id="direccion" name="direccion" required><?= $cliente['direccion'] ?></textarea>
-        <br><br>
-        <button type="submit">Actualizar Cliente</button>
-    </form>
+    <div class="container mt-5">
+        <h1 class="mb-4" style="color: #ec6cb2;">Editar Cliente</h1>
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) . '?id=' . $id_cliente; ?>" method="POST">
+            <div class="mb-3">
+                <label for="nombre" class="form-label" style="font-family: nexa;">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" class="form-control" value="<?= htmlspecialchars($cliente['nombre']) ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="apellido_p" class="form-label" style="font-family: nexa;">Apellido Paterno:</label>
+                <input type="text" id="apellido_p" name="apellido_p" class="form-control" value="<?= htmlspecialchars($cliente['apellido_p']) ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="apellido_m" class="form-label" style="font-family: nexa;">Apellido Materno:</label>
+                <input type="text" id="apellido_m" name="apellido_m" class="form-control" value="<?= htmlspecialchars($cliente['apellido_m']) ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label" style="font-family: nexa;">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" class="form-control" value="<?= htmlspecialchars($cliente['email']) ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="numero" class="form-label" style="font-family: nexa;">Número de Teléfono:</label>
+                <input type="tel" id="numero" name="numero" class="form-control" value="<?= htmlspecialchars($cliente['numero']) ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="direccion" class="form-label" style="font-family: nexa;">Dirección:</label>
+                <textarea id="direccion" name="direccion" class="form-control" required><?= htmlspecialchars($cliente['direccion']) ?></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="background-color: #ec6cb2; border-color: #ec6cb2; font-family: nexa;">Actualizar Cliente</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

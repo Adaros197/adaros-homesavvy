@@ -1,44 +1,44 @@
-<form action="<?php echo basename($_SERVER['PHP_SELF']); ?>" method="POST" id="gestion-perfil-form" enctype="multipart/form-data">
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" value="<?php echo isset($user['nombre']) ? $user['nombre'] : ''; ?>" required>
-    <br><br>
-
-    <label for="apellido_p">Apellido Paterno:</label>
-    <input type="text" id="apellido_p" name="apellido_p" value="<?php echo isset($user['apellido_p']) ? $user['apellido_p'] : ''; ?>" required>
-    <br><br>
-
-    <label for="apellido_m">Apellido Materno:</label>
-    <input type="text" id="apellido_m" name="apellido_m" value="<?php echo isset($user['apellido_m']) ? $user['apellido_m'] : ''; ?>" required>
-    <br><br>
-
-    <label for="email">Correo Electrónico:</label>
-    <input type="email" id="email" name="email" value="<?php echo isset($user['email']) ? $user['email'] : ''; ?>" required>
-    <br><br>
-
-    <label for="password">Contraseña:</label>
-    <input type="password" id="password" name="password" placeholder="Ingrese su nueva contraseña">
-    <br><br>
-
-    <label for="numero">Número de Teléfono:</label>
-    <input type="tel" id="numero" name="numero" value="<?php echo isset($user['numero']) ? $user['numero'] : ''; ?>" required>
-    <br><br>
-
-    <label for="direccion">Dirección:</label>
-    <textarea id="direccion" name="direccion" required><?php echo isset($user['direccion']) ? $user['direccion'] : ''; ?></textarea>
-    <br><br>
-
-    <label for="foto_perfil">Foto de Perfil (opcional):</label>
-    <input type="file" id="foto_perfil" name="foto_perfil" accept="image/*">
-    <br><br>
+<form action="<?php echo basename($_SERVER['PHP_SELF']); ?>" method="POST" id="gestion-perfil-form" class="container mt-5" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="nombre" class="form-label" style="font-family: nexa;">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" class="form-control" value="<?php echo isset($user['nombre']) ? $user['nombre'] : ''; ?>" required>
+    </div>
+    <div class="mb-3">
+        <label for="apellido_p" class="form-label" style="font-family: nexa;">Apellido Paterno:</label>
+        <input type="text" id="apellido_p" name="apellido_p" class="form-control" value="<?php echo isset($user['apellido_p']) ? $user['apellido_p'] : ''; ?>" required>
+    </div>
+    <div class="mb-3">
+        <label for="apellido_m" class="form-label" style="font-family: nexa;">Apellido Materno:</label>
+        <input type="text" id="apellido_m" name="apellido_m" class="form-control" value="<?php echo isset($user['apellido_m']) ? $user['apellido_m'] : ''; ?>" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label" style="font-family: nexa;">Correo Electrónico:</label>
+        <input type="email" id="email" name="email" class="form-control" value="<?php echo isset($user['email']) ? $user['email'] : ''; ?>" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label" style="font-family: nexa;">Contraseña:</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Ingrese su nueva contraseña">
+    </div>
+    <div class="mb-3">
+        <label for="numero" class="form-label" style="font-family: nexa;">Número de Teléfono:</label>
+        <input type="tel" id="numero" name="numero" class="form-control" value="<?php echo isset($user['numero']) ? $user['numero'] : ''; ?>" required>
+    </div>
+    <div class="mb-3">
+        <label for="direccion" class="form-label" style="font-family: nexa;">Dirección:</label>
+        <textarea id="direccion" name="direccion" class="form-control" required><?php echo isset($user['direccion']) ? $user['direccion'] : ''; ?></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="foto_perfil" class="form-label" style="font-family: nexa;">Foto de Perfil (opcional):</label>
+        <input type="file" id="foto_perfil" name="foto_perfil" class="form-control" accept="image/*">
+    </div>
     <?php if ($user['foto_perfil']): ?>
-        <p>Foto actual:</p>
-        <img src="../<?php echo $user['foto_perfil']; ?>" alt="Foto de perfil" style="max-width: 200px;">
+        <div class="mb-3">
+            <p style="font-family: nexa;">Foto actual:</p>
+            <img src="../<?php echo $user['foto_perfil']; ?>" alt="Foto de perfil" style="max-width: 200px;">
+        </div>
     <?php endif; ?>
-    <br><br>
-
-    <button type="submit">Actualizar Perfil</button>
+    <button type="submit" class="btn btn-primary" style="background-color: #3e93d6; border-color: #3e93d6; font-family: nexa;">Actualizar Perfil</button>
 </form>
-
-<form action="delete-account.php" method="POST">
-    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar tu cuenta?')">Eliminar Cuenta</button>
+<form action="delete-account.php" method="POST" class="container mt-3">
+    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar tu cuenta?')" style="font-family: nexa;">Eliminar Cuenta</button>
 </form>

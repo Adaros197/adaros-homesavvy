@@ -3,28 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ver Solicitudes de Servicio</title>
+    <title>Ver Solicitudes de Servicio - Profesional</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: nexa;
+            src: url('../../assets/fonts/title.ttf');
+        }
+        body {
+            font-family: nexa;
+        }
+    </style>
 </head>
 <body>
     <?php include '../../includes/navbar-profesional.php'; ?>
-    <h1>Solicitudes de Servicio Disponibles</h1>
+    <div class="container mt-5">
+        <h1 class="mb-4" style="color: #a2a2f4;">Ver Solicitudes de Servicio</h1>
+        <!-- Filtros -->
+        <form id="filtro-form">
+            <label for="estado">Filtrar por estado:</label>
+            <select id="estado" name="estado" class="form-control mb-3">
+                <option value="todas">Todas</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="en proceso">En Proceso</option>
+                <option value="completada">Completada</option>
+            </select>
+            <button type="button" class="btn btn-primary" onclick="cargarSolicitudes()">Filtrar</button>
+        </form>
 
-    <!-- Filtros -->
-    <form id="filtro-form">
-        <label for="estado">Filtrar por estado:</label>
-        <select id="estado" name="estado">
-            <option value="todas">Todas</option>
-            <option value="pendiente">Pendiente</option>
-            <option value="en proceso">En Proceso</option>
-            <option value="completada">Completada</option>
-        </select>
-        <button type="button" onclick="cargarSolicitudes()">Filtrar</button>
-    </form>
-
-    <div id="solicitudes">
-        <!-- Aquí se cargarán las solicitudes disponibles mediante AJAX -->
+        <div id="solicitudes" class="mt-4">
+            <!-- Aquí se cargarán las solicitudes disponibles mediante AJAX -->
+        </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         async function cargarSolicitudes() {
             const estado = document.getElementById("estado").value;
@@ -35,10 +48,10 @@
                 const solicitudesDiv = document.getElementById("solicitudes");
 
                 if (data.success) {
-                    let html = "<ul>";
+                    let html = "<ul class='list-group'>";
                     data.solicitudes.forEach(solicitud => {
                         html += `
-                            <li>
+                            <li class="list-group-item">
                                 <h3>${solicitud.titulo}</h3>
                                 <p>${solicitud.descripcion}</p>
                                 <p><strong>Estado:</strong> ${solicitud.estado}</p>
@@ -49,9 +62,8 @@
                                     ? `<img src="../../${solicitud.foto}" alt="Foto del servicio" style="max-width: 200px;">`
                                     : "<p>Sin imagen</p>"
                                 }
-                                <button onclick="postularse(${solicitud.id_solicitud_servicio})">Postularme</button>
+                                <button class="btn btn-success mt-2" onclick="postularse(${solicitud.id_solicitud_servicio})">Postularme</button>
                             </li>
-                            <hr>
                         `;
                     });
                     html += "</ul>";
