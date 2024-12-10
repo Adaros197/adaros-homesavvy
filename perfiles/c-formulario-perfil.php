@@ -15,7 +15,6 @@
     <input type="email" id="email" name="email" value="<?php echo isset($user['email']) ? $user['email'] : ''; ?>" required>
     <br><br>
 
-    // para contraseña
     <label for="password">Contraseña:</label>
     <input type="password" id="password" name="password" placeholder="Ingrese su nueva contraseña">
     <br><br>
