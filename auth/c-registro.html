@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Cliente</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: nexa;
+        }
+
+        @font-face {
+            font-family: nexa;
+            src: url(../assets/fonts/title.ttf);
+        }
+
+        .registro-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 90%;
+            max-width: 1200px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 3rem;
+        }
+
+        .form-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #3E93D6;
+        }
+
+        .form-section .form-control {
+            border-radius: 30px;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .form-section .btn-primary {
+            border-radius: 30px;
+            padding: 0.75rem 1.5rem;
+            background-color: #3E93D6;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-section .btn-primary:hover {
+            background-color: #2b6aa4;
+        }
+
+        .image-section {
+            flex: 1;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+        }
+
+        .image-section img {
+            width: 80%; /* Ajusta el tamaño de la imagen */
+            max-width: 500px;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .image-section {
+                display: none; /* Oculta la imagen en pantallas pequeñas */
+            }
+
+            .form-section {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="registro-container">
+        <!-- Imagen del logo -->
+        <div class="image-section">
+            <img src="../assets/img/clientes-tr.png" alt="Logo Cliente">
+        </div>
+        <!-- Sección del formulario -->
+        <div class="form-section">
+            <h1>Registro de Cliente</h1>
+            <form id="registro-form" action="c-registro.php" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="apellido_p" class="form-label">Apellido Paterno:</label>
+                    <input type="text" class="form-control" id="apellido_p" name="apellido_p" placeholder="Ingrese su apellido paterno" required>
+                </div>
+                <div class="mb-3">
+                    <label for="apellido_m" class="form-label">Apellido Materno:</label>
+                    <input type="text" class="form-control" id="apellido_m" name="apellido_m" placeholder="Ingrese su apellido materno" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico:</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su correo" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña:</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña" required>
+                </div>
+                <div class="mb-3">
+                    <label for="numero" class="form-label">Número de Teléfono:</label>
+                    <input type="tel" class="form-control" id="numero" name="numero" placeholder="Ingrese su número" required>
+                </div>
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección:</label>
+                    <input class="form-control" id="direccion" name="direccion" rows="3" placeholder="Ingrese su dirección" required></input>
+                </div>
+                <div class="mb-3">
+                    <label for="ine" class="form-label">INE:</label>
+                    <input type="file" class="form-control" id="ine" name="ine" accept="application/pdf,image/*">
+                </div>
+                <div class="mb-3">
+                    <label for="comprobante_domicilio" class="form-label">Comprobante de Domicilio:</label>
+                    <input type="file" class="form-control" id="comprobante_domicilio" name="comprobante_domicilio" accept="application/pdf,image/*">
+                </div>
+                <div class="mb-3">
+                    <label for="foto_perfil" class="form-label">Foto de Perfil (Imagen):</label>
+                    <input type="file" class="form-control" id="foto_perfil" name="foto_perfil" accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-4">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

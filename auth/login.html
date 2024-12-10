@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HomeSavvy</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        @font-face {
+            font-family: nexa;
+            src: url(../assets/fonts/title.ttf);
+        }
+
+        .login-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 90%;
+            max-width: 1200px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 3rem;
+        }
+
+        .form-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .form-section p {
+            margin-bottom: 1rem;
+            color: #6c757d;
+        }
+
+        .form-section a {
+            color: #3E93D6;
+            text-decoration: none;
+        }
+
+        .form-section a:hover {
+            text-decoration: underline;
+        }
+
+        .form-section .form-control {
+            border-radius: 30px;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .form-section .btn-primary {
+            border-radius: 30px;
+            padding: 0.75rem 1.5rem;
+            background-color: #3E93D6;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-section .btn-primary:hover {
+            background-color: #1d537c;
+        }
+
+        .image-section {
+            flex: 1;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+        }
+
+        .image-section img {
+            max-width: 70%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .image-section {
+                display: none; /* Oculta la imagen en pantallas pequeñas */
+            }
+
+            .form-section {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body style="font-family: nexa;">
+    <div class="login-container">
+        <!-- Imagen del logo -->
+        <div class="image-section">
+            <img src="../assets/img/hd.png" alt="Logo HomeSavvy">
+        </div>
+        <!-- Sección del formulario -->
+        <div class="form-section">
+            <h1>Iniciar Sesión</h1>
+            <p>¿Aún no tienes una cuenta? <a href="#">Crea una cuenta</a></p>
+            <form id="login-form">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico:</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su correo" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña:</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña" required>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Recordar mi cuenta</label>
+                    </div>
+                    <a href="#">¿Olvidaste tu contraseña?</a>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+            </form>
+            <p class="mt-4 text-center">¿Necesitas ayuda?</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('login.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirect;
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
