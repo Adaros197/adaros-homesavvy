@@ -22,7 +22,7 @@ if (isset($_SESSION['admin_id'])) {
     $query = "DELETE FROM Cliente WHERE id_cliente = '$id'";
     mysqli_query($conexion, $query);
     session_destroy();
-    header("Location: ../index.php");
+    header("Location: ../index.html");
     exit;
 } else {
     echo "Error: No se pudo eliminar la cuenta.";
