@@ -14,6 +14,7 @@
             font-family: nexa;
         }
     </style>
+    <link rel="stylesheet" href="../../includes/footer-styles.css">
 </head>
 <body>
     <?php include '../../includes/navbar-cliente.php'; ?>
@@ -125,5 +126,6 @@
         // Cargar historial al cargar la página
         cargarHistorial();
     </script>
+    <?php include '../../includes/footer-cliente.php'; ?>
 </body>
 </html>

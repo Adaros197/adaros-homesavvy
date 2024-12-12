@@ -1,11 +1,15 @@
 <?php
 session_start();  // Inicia la sesión del usuario
-header('Content-Type: application/json');
 require("../conexion.php");
 
 $conexion = retornarConexion();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Cerrar cualquier sesión existente
+    session_unset();
+    session_destroy();
+    session_start();
+
     $email = mysqli_real_escape_string($conexion, $_POST['email']);
     $password = mysqli_real_escape_string($conexion, $_POST['password']);
 
@@ -24,17 +28,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (mysqli_num_rows($result_cliente) == 1) {
         $user = mysqli_fetch_assoc($result_cliente);
         $_SESSION['cliente_id'] = $user['id_cliente'];
+        header('Content-Type: application/json');
         echo json_encode(['success' => true, 'message' => 'Inicio de sesión exitoso como Cliente', 'redirect' => '../trabajos/cliente/c-ver-soli-trabajo-form.php']);
+        exit();
     } elseif (mysqli_num_rows($result_profesional) == 1) {
         $user = mysqli_fetch_assoc($result_profesional);
         $_SESSION['profesional_id'] = $user['id_profesional'];
+        header('Content-Type: application/json');
         echo json_encode(['success' => true, 'message' => 'Inicio de sesión exitoso como Profesional', 'redirect' => '../servicios/profesional/p-ver-soli-servicio-form.php']);
+        exit();
     } elseif (mysqli_num_rows($result_admin) == 1) {
         $user = mysqli_fetch_assoc($result_admin);
         $_SESSION['admin_id'] = $user['id_admin'];
+        header('Content-Type: application/json');
         echo json_encode(['success' => true, 'message' => 'Inicio de sesión exitoso como Admin', 'redirect' => '../admin/a-principal.php']);
+        exit();
     } else {
+        header('Content-Type: application/json');
         echo json_encode(['success' => false, 'message' => 'Correo o contraseña incorrectos']);
+        exit();
     }
 }
 ?>

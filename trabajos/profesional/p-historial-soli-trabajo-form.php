@@ -14,6 +14,7 @@
             font-family: nexa;
         }
     </style>
+    <link rel="stylesheet" href="../../includes/footer-styles.css">
 </head>
 <body>
     <?php include '../../includes/navbar-profesional.php'; ?>
@@ -121,5 +122,6 @@
 
         cargarHistorial();
     </script>
+    <?php include '../../includes/footer-profesional.php'; ?>
 </body>
 </html>

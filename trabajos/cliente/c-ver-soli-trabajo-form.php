@@ -14,6 +14,7 @@
             font-family: nexa;
         }
     </style>
+    <link rel="stylesheet" href="../../includes/footer-styles.css">
 </head>
 <body>
     <?php include '../../includes/navbar-cliente.php'; ?>
@@ -93,5 +94,6 @@
         // Cargar las solicitudes al iniciar la página
         cargarSolicitudes();
     </script>
+    <?php include '../../includes/footer-cliente.php'; ?>
 </body>
 </html>
