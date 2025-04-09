@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light" data-pwa="true">
   <head>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3E93D6">
+
     <meta charset="utf-8">
 
     <!-- Viewport -->
@@ -15,7 +18,6 @@
     <!-- Webmanifest + Favicon / App icons -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/png" href="assets/img/hd.png" sizes="32x32">
     <link rel="apple-touch-icon" href="assets/app-icons/icon-180x180.png">
 
@@ -38,7 +40,6 @@
     <link rel="preload" href="assets/css/theme.min.css" as="style">
     <link rel="stylesheet" href="assets/css/theme.min.css" id="theme-styles">
 
-    
     <link href="assets/css/theme.min.css">
     <style>
      :root,[data-bs-theme="light"]{--cz-primary:#3E93D6;--cz-primary-rgb:62,147,214;--cz-primary-text-emphasis:#257abd;--cz-primary-bg-subtle:#ecf4fb;--cz-primary-border-subtle:#d8e9f7;}[data-bs-theme="dark"]{--cz-primary-text-emphasis:#3186c9;--cz-primary-bg-subtle:#1c2937;--cz-primary-border-subtle:#203548;}.btn-primary{--cz-btn-bg:#3E93D6;--cz-btn-border-color:#3E93D6;--cz-btn-hover-bg:#257abd;--cz-btn-hover-border-color:#257abd;--cz-btn-active-bg:#257abd;--cz-btn-active-border-color:#257abd;--cz-btn-disabled-bg:#3E93D6;--cz-btn-disabled-border-color:#3E93D6;}.btn-outline-primary{--cz-btn-color:#3E93D6;--cz-btn-border-color:#3E93D6;--cz-btn-hover-bg:#3E93D6;--cz-btn-hover-border-color:#3E93D6;--cz-btn-active-bg:#3E93D6;--cz-btn-active-border-color:#3E93D6;--cz-btn-disabled-color:#3E93D6;--cz-btn-disabled-border-color:#3E93D6;}
@@ -292,6 +293,9 @@
         </div>
       </section>
 
+      <button id="installButton" style="display: none;">Instalar HomeSavvy</button>
+
+
 
       <!-- Store locations + Map in lightbox -->
       <section class="container pt-1 pt-sm-2 pt-md-3 pt-lg-4 pt-xl-5 mt-xxl-3">
@@ -411,5 +415,36 @@
 
     <!-- Bootstrap + Theme scripts -->
     <script src="assets/js/theme.min.js"></script>
+      <script>
+        let deferredPrompt;
+        const installButton = document.getElementById('installButton');
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installButton.style.display = 'block';
+        });
+        
+        installButton.addEventListener('click', () => {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(choice => {
+                if (choice.outcome === 'accepted') {
+                    console.log('Instalado');
+                } else {
+                    console.log('Cancelado');
+                }
+                deferredPrompt = null;
+            });
+        });
+        </script>   
+        <script>
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+              .then(reg => console.log('SW registrado', reg))
+              .catch(err => console.error('SW error', err));
+          }
+        </script>
+         
+      
   </body>
 </html>
