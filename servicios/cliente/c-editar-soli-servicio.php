@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $descripcion = mysqli_real_escape_string($conexion, $_POST['descripcion']);
     $horarios = mysqli_real_escape_string($conexion, $_POST['horarios']);
     $metodo_pago = mysqli_real_escape_string($conexion, $_POST['metodo_pago']);
+    $categoria = mysqli_real_escape_string($conexion, $_POST['categoria']);
+
 
     // Procesar nueva foto si se subió
     if (!empty($_FILES['foto']['name'])) {
@@ -35,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Actualizar campos restantes
     $query = "UPDATE SolicitudServicio 
-              SET titulo = '$titulo', descripcion = '$descripcion', horarios = '$horarios', metodo_pago = '$metodo_pago' 
-              WHERE id_solicitud_servicio = '$id_solicitud' AND id_cliente = '$cliente_id'";
+            SET titulo = '$titulo', descripcion = '$descripcion', categoria = '$categoria', horarios = '$horarios', metodo_pago = '$metodo_pago' 
+            WHERE id_solicitud_servicio = '$id_solicitud' AND id_cliente = '$cliente_id'";
     $result = mysqli_query($conexion, $query);
 
     if ($result) {

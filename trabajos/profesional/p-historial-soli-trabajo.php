@@ -12,8 +12,7 @@ if (!isset($_SESSION['profesional_id'])) {
 
 $profesional_id = $_SESSION['profesional_id'];
 
-// Consultar historial de solicitudes del profesional
-$query = "SELECT id_solicitud_trabajo, titulo, descripcion, categoria, tarifa, estado 
+$query = "SELECT id_solicitud_trabajo, titulo, descripcion, categoria, tarifa, horarios, estado, foto,metodo_pago 
           FROM SolicitudTrabajo 
           WHERE id_profesional = '$profesional_id'";
 $result = mysqli_query($conexion, $query);

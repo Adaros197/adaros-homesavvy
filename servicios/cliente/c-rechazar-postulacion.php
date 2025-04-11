@@ -5,7 +5,7 @@ require("../../conexion.php");
 
 $conexion = retornarConexion();
 
-$id_postulacion = mysqli_real_escape_string($conexion, $_GET['id_postulacion']);
+$id_postulacion = mysqli_real_escape_string($conexion, $_POST['id_postulacion'] ?? '');
 
 $query = "UPDATE PostulacionServicio SET estado = 'rechazada' WHERE id_postulacion_servicio = '$id_postulacion'";
 $result = mysqli_query($conexion, $query);

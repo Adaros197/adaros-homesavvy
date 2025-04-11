@@ -5,7 +5,12 @@ require("../../conexion.php");
 
 $conexion = retornarConexion();
 
-$id_postulacion = mysqli_real_escape_string($conexion, $_GET['id_postulacion']);
+$id_postulacion = mysqli_real_escape_string($conexion, $_POST['id_postulacion'] ?? '');
+if (!$id_postulacion) {
+    echo json_encode(['success' => false, 'message' => 'ID de postulación no recibido']);
+    exit;
+}
+
 
 $query = "UPDATE PostulacionServicio SET estado = 'aceptada' WHERE id_postulacion_servicio = '$id_postulacion'";
 $result = mysqli_query($conexion, $query);

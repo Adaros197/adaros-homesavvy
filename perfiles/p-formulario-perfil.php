@@ -1,52 +1,214 @@
-<form action="<?php echo basename($_SERVER['PHP_SELF']); ?>" method="POST" id="gestion-perfil-form" class="container mt-5" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label for="nombre" class="form-label" style="font-family: nexa;">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" class="form-control" value="<?php echo isset($user['nombre']) ? $user['nombre'] : ''; ?>" required>
-    </div>
-    <div class="mb-3">
-        <label for="apellido_p" class="form-label" style="font-family: nexa;">Apellido Paterno:</label>
-        <input type="text" id="apellido_p" name="apellido_p" class="form-control" value="<?php echo isset($user['apellido_p']) ? $user['apellido_p'] : ''; ?>" required>
-    </div>
-    <div class="mb-3">
-        <label for="apellido_m" class="form-label" style="font-family: nexa;">Apellido Materno:</label>
-        <input type="text" id="apellido_m" name="apellido_m" class="form-control" value="<?php echo isset($user['apellido_m']) ? $user['apellido_m'] : ''; ?>" required>
-    </div>
-    <div class="mb-3">
-        <label for="email" class="form-label" style="font-family: nexa;">Correo Electrónico:</label>
-        <input type="email" id="email" name="email" class="form-control" value="<?php echo isset($user['email']) ? $user['email'] : ''; ?>" required>
-    </div>
-    <div class="mb-3">
-        <label for="password" class="form-label" style="font-family: nexa;">Contraseña:</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Ingrese su nueva contraseña">
-    </div>
-    <div class="mb-3">
-        <label for="numero" class="form-label" style="font-family: nexa;">Número de Teléfono:</label>
-        <input type="tel" id="numero" name="numero" class="form-control" value="<?php echo isset($user['numero']) ? $user['numero'] : ''; ?>" required>
-    </div>
-    <div class="mb-3">
-        <label for="direccion" class="form-label" style="font-family: nexa;">Dirección:</label>
-        <textarea id="direccion" name="direccion" class="form-control" required><?php echo isset($user['direccion']) ? $user['direccion'] : ''; ?></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="profesion" class="form-label" style="font-family: nexa;">Profesión:</label>
-        <input type="text" id="profesion" name="profesion" class="form-control" value="<?php echo isset($user['profesion']) ? $user['profesion'] : ''; ?>" required>
-    </div>
-    <div class="mb-3">
-        <label for="rfc" class="form-label" style="font-family: nexa;">RFC:</label>
-        <input type="text" id="rfc" name="rfc" class="form-control" value="<?php echo isset($user['rfc']) ? $user['rfc'] : ''; ?>" required>
-    </div>
-    <div class="mb-3">
-        <label for="foto_perfil" class="form-label" style="font-family: nexa;">Foto de Perfil (opcional):</label>
-        <input type="file" id="foto_perfil" name="foto_perfil" class="form-control" accept="image/*">
-    </div>
-    <?php if ($user['foto_perfil']): ?>
-        <div class="mb-3">
-            <p style="font-family: nexa;">Foto actual:</p>
-            <img src="../<?php echo $user['foto_perfil']; ?>" alt="Foto de perfil" style="max-width: 200px;">
+<style>
+    h3 {
+        color: #a2a2f4 !important;
+    }
+
+    .form-container form {
+        transition: all 0.4s ease-in-out !important;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    .form-container form.show {
+        opacity: 1;
+        max-height: 1000px;
+    }
+
+    .btn-link {
+        position: relative;
+        text-decoration: none !important;
+    }
+
+    .btn-link::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background-color: #a2a2f4;
+        transition: all 0.3s ease-in-out;
+        transform: translateX(-50%);
+    }
+
+    .btn-link:hover::after {
+        width: 100%;
+        left: 0;
+        transform: translateX(0);
+    }
+
+    .guardar {
+        background-color: #a2a2f4;
+        color: #fff;
+        border-radius: 20px !important;
+        padding: 5px 20px;
+    }
+
+    .guardar:hover {
+        background-color: #7b7bff;
+        transition: .5s;
+    }
+
+    .cerrar {
+        background-color: #a2a2f4 !important;
+    }
+
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .editar {
+        color: #a2a2f4 !important;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="card shadow-sm border-0 rounded-4 p-4" style="font-family: nexa;">
+        <h3 class="mb-4 fw-bold">Gestionar Perfil Profesional</h3>
+
+        <!-- Datos Personales -->
+        <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+            <div>
+                <p class="mb-1"><strong>Nombre:</strong> <?php echo $user['nombre']; ?></p>
+                <p class="mb-1"><strong>Apellido Paterno:</strong> <?php echo $user['apellido_p']; ?></p>
+                <p class="mb-1"><strong>Apellido Materno:</strong> <?php echo $user['apellido_m']; ?></p>
+            </div>
+            <button class="btn btn-link fw-bold editar" onclick="toggleEdit('editDatos')">Editar</button>
         </div>
-    <?php endif; ?>
-    <button type="submit" class="btn btn-primary" style="background-color: #a2a2f4; border-color: #a2a2f4; font-family: nexa;">Actualizar Perfil</button>
-</form>
-<form action="delete-account.php" method="POST" class="container mt-3">
-    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar tu cuenta?')" style="font-family: nexa;">Eliminar Cuenta</button>
-</form>
+
+        <div class="form-container">
+            <form id="editDatos" class="mb-4" method="POST" action="<?php echo basename($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data">
+                <input type="hidden" name="formulario" value="datos">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <input type="text" name="nombre" class="form-control" value="<?php echo $user['nombre']; ?>" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <input type="text" name="apellido_p" class="form-control" value="<?php echo $user['apellido_p']; ?>" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <input type="text" name="apellido_m" class="form-control" value="<?php echo $user['apellido_m']; ?>" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Foto de Perfil:</label>
+                    <input type="file" name="foto_perfil" class="form-control" accept="image/*">
+                </div>
+                <?php if (!empty($user['foto_perfil'])): ?>
+                    <div class="mb-3">
+                        <img src="../<?php echo $user['foto_perfil']; ?>" alt="Foto de perfil" class="img-thumbnail" style="max-width: 150px;">
+                    </div>
+                <?php endif; ?>
+                <button class="btn btn-sm rounded-pill guardar">Guardar</button>
+            </form>
+        </div>
+
+        <!-- Contacto y Profesión -->
+        <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mt-4 mb-3">
+            <div>
+                <p class="mb-1"><strong>Email:</strong> <?php echo $user['email']; ?></p>
+                <p class="mb-1"><strong>Teléfono:</strong> <?php echo $user['numero']; ?></p>
+                <p class="mb-1"><strong>Dirección:</strong> <?php echo $user['direccion']; ?></p>
+                <p class="mb-1"><strong>Profesión:</strong> <?php echo $user['profesion']; ?></p>
+                <p class="mb-1"><strong>RFC:</strong> <?php echo $user['rfc']; ?></p>
+            </div>
+            <button class="btn btn-link text-primary fw-bold editar" onclick="toggleEdit('editContacto')">Editar</button>
+        </div>
+
+        <div class="form-container">
+            <form id="editContacto" class="mb-4" method="POST" action="<?php echo basename($_SERVER['PHP_SELF']); ?>">
+                <input type="hidden" name="formulario" value="contacto">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <input type="email" name="email" class="form-control" value="<?php echo $user['email']; ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="tel" name="numero" class="form-control" value="<?php echo $user['numero']; ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="text" name="direccion" class="form-control" value="<?php echo $user['direccion']; ?>" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <input type="text" name="profesion" class="form-control" value="<?php echo $user['profesion']; ?>" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <input type="text" name="rfc" class="form-control" value="<?php echo $user['rfc']; ?>" required>
+                    </div>
+                </div>
+                <button class="btn btn-sm guardar">Guardar</button>
+            </form>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mt-4 mb-3">
+            <div>
+                <p class="mb-1"><strong>Contraseña:</strong> ************</p>
+            </div>
+            <button class="btn btn-link text-primary fw-bold editar" onclick="toggleEdit('editPassword')">Editar</button>
+        </div>
+
+        <div class="form-container">
+            <form id="editPassword" class="mb-4" method="POST" action="<?php echo basename($_SERVER['PHP_SELF']); ?>">
+                <input type="hidden" name="formulario" value="password">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Nueva contraseña">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="password" name="confirmar_password" class="form-control" placeholder="Confirmar contraseña">
+                    </div>
+                </div>
+                <button class="btn btn-sm rounded-pill guardar">Guardar</button>
+            </form>
+        </div>
+
+        <!-- Eliminar cuenta -->
+        <div class="mt-4 text-center">
+            <button type="button" class="btn btn-outline-danger rounded-pill" data-toggle="modal" data-target="#deleteModal">
+                Eliminar Cuenta
+            </button>
+        </div>
+
+        <!-- Modal de confirmación -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form action="delete-account.php" method="POST" class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Confirmación de Eliminación</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Eliminar Cuenta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleEdit(id) {
+    const form = document.getElementById(id);
+    if (form.classList.contains('show')) {
+        form.classList.remove('show');
+        setTimeout(() => {
+            form.classList.add('d-none');
+        }, 400);
+    } else {
+        form.classList.remove('d-none');
+        setTimeout(() => {
+            form.classList.add('show');
+        }, 10);
+    }
+}
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

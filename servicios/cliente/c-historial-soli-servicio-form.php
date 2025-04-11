@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Historial de Solicitudes</title>
+  <link rel="icon" href="../../assets/img/hd.png" sizes="16x16" type="image/png">
+  <link rel="stylesheet" href="../../includes/footer-styles.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <style>
     @font-face {
       font-family: nexa;
@@ -15,6 +18,12 @@
       font-family: nexa;
       background-color: #e2f2ff !important;
     }
+
+    .btn-outline-primary,
+    .btn-outline-danger {
+      border-radius: 20px !important;
+    }
+
 
     .tarjeta-solicitud {
       border: 1px solid #ddd;
@@ -59,6 +68,40 @@
     .modal-footer {
       border-top: none;
     }
+
+    .icon-spin {
+      font-size: 3rem;
+      color: #3E93D6;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .boton-fijo {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+      background-color: #3e93d6;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .boton-fijo:hover {
+      background-color: #2c78b6;
+      text-decoration: none;
+      color: white;
+    }
+
   </style>
 </head>
 <body>
@@ -90,7 +133,6 @@
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
   <script>
     let solicitudAEliminar = null;
 
@@ -100,28 +142,42 @@
         const data = await response.json();
         const historialDiv = document.getElementById("historial");
 
-        if (data.success) {
+        if (data.success && data.solicitudes.length > 0) {
           let html = "";
           data.solicitudes.forEach(solicitud => {
             html += `
               <div class="tarjeta-solicitud">
                 <h5>${solicitud.titulo}</h5>
                 <p>${solicitud.descripcion}</p>
+                <p><strong>Categoría:</strong> ${solicitud.categoria || 'Sin categoría'}</p>
                 <p><strong>Estado:</strong> ${solicitud.estado}</p>
                 <p><strong>Horario:</strong> ${solicitud.horarios}</p>
                 <p><strong>Método de Pago:</strong> ${solicitud.metodo_pago}</p>
                 ${solicitud.foto ? `<img src="../../${solicitud.foto}" alt="Foto" style="max-width: 200px;" class="img-fluid rounded">` : "<p>Sin imagen</p>"}
-                <div class="mt-3 d-flex gap-2">
-                  <button class="btn btn-trabajo" onclick="verPostulaciones(${solicitud.id_solicitud_servicio})">Ver Postulaciones</button>
-                  <button class="btn btn-outline-primary btn-sm" onclick="editarSolicitud(${solicitud.id_solicitud_servicio})">Editar</button>
-                  <button class="btn btn-outline-danger btn-sm" onclick="mostrarConfirmacion(${solicitud.id_solicitud_servicio})">Eliminar</button>
+                <div class="mt-3 d-flex justify-content-end gap-2">
+                  <button class="btn btn-trabajo" onclick="verPostulaciones(${solicitud.id_solicitud_servicio})">
+                    <i class="bi bi-person-lines-fill me-1"></i> Ver Postulaciones
+                  </button>
+                  <button class="btn btn-outline-primary btn-sm" onclick="editarSolicitud(${solicitud.id_solicitud_servicio})">
+                    <i class="bi bi-pencil-square me-1"></i> Editar
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm" onclick="mostrarConfirmacion(${solicitud.id_solicitud_servicio})">
+                    <i class="bi bi-trash3 me-1"></i> Eliminar
+                  </button>
                 </div>
               </div>
             `;
           });
+
           historialDiv.innerHTML = html;
         } else {
-          historialDiv.innerHTML = `<p>${data.message}</p>`;
+          historialDiv.innerHTML = `
+            <div class="text-center mt-5">
+              <i class="bi bi-arrow-repeat icon-spin mb-3"></i>
+              <h4 class="text-muted">Aún no has realizado ninguna solicitud</h4>
+              <p class="text-muted">Cuando subas una solicitud de servicio, aparecerá aquí.</p>
+            </div>
+          `;
         }
       } catch (error) {
         document.getElementById("historial").innerHTML = "<p>Error al cargar el historial</p>";
@@ -131,6 +187,7 @@
     function editarSolicitud(id) {
       window.location.href = `c-editar-soli-servicio-form.php?id_solicitud=${id}`;
     }
+
 
     function mostrarConfirmacion(id) {
       solicitudAEliminar = id;
@@ -158,13 +215,18 @@
       }
     });
 
-    async function verPostulaciones(id) {
-      alert("Funcionalidad pendiente: ver postulaciones de solicitud ID " + id);
+    function verPostulaciones(id) {
+      window.location.href = `c-ver-postulaciones-form.php?id_solicitud=${id}`;
     }
+
+
 
     cargarHistorial();
   </script>
+  <a href="c-ver-mis-postulaciones-form.php" class="boton-fijo">
+    <i class="bi bi-list-check"></i> Ver mis postulaciones
+  </a>
 
-<?php include '../../includes/footer-cliente.php'; ?>
+  <?php include '../../includes/footer-cliente.php'; ?>
 </body>
 </html>

@@ -10,7 +10,13 @@ if (!isset($_SESSION['profesional_id'])) {
     exit;
 }
 
-$id_peticion = mysqli_real_escape_string($conexion, $_GET['id_peticion']);
+// Verificar si se recibió el id_peticion por POST
+if (!isset($_POST['id_peticion'])) {
+    echo json_encode(['success' => false, 'message' => 'ID de petición no recibido']);
+    exit;
+}
+
+$id_peticion = mysqli_real_escape_string($conexion, $_POST['id_peticion']);
 
 $query = "UPDATE PeticionTrabajo SET estado = 'aceptada' WHERE id_peticion_trabajo = '$id_peticion'";
 $result = mysqli_query($conexion, $query);
@@ -20,4 +26,6 @@ if ($result) {
 } else {
     echo json_encode(['success' => false, 'message' => 'Error al aceptar la petición: ' . mysqli_error($conexion)]);
 }
+?>
+
 ?>

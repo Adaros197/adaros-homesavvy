@@ -78,10 +78,13 @@ header("Pragma: no-cache");
         }
 
         .tarjeta-usuario img {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
             border-radius: 50%;
-        }
+            border: 2px solid #3E93D6;
+        }       
+
 
         .btn-trabajo {
             background-color: #3E93D6 !important;
@@ -155,10 +158,11 @@ header("Pragma: no-cache");
                                 <p>${solicitud.descripcion}</p>
                                 <div class="tarjeta-footer mt-3">
                                     <div class="tarjeta-usuario">
-                                        <img src="../../${solicitud.foto ?? 'assets/img/default.png'}" alt="Perfil">
+                                        <img src="../../${solicitud.foto_perfil ?? 'assets/img/default.png'}" alt="Foto Profesional">
                                         <div>
                                             <strong>${solicitud.nombre_usuario ?? 'User name'}</strong><br>
-                                            <small>${solicitud.fecha ?? 'Fecha'}</small>
+                                            <small>${new Date(solicitud.fecha_creacion).toLocaleDateString('es-MX')}</small>
+
                                         </div>
                                     </div>
                                     <div class="text-end">

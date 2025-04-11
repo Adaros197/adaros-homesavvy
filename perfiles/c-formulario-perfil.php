@@ -160,32 +160,34 @@
         </div>
 
         <!-- Eliminar cuenta -->
-        <form action="delete-account.php" method="POST" class="mt-4 text-center">
-            <button type="button" class="btn btn-outline-danger rounded-pill" data-toggle="modal" data-target="#deleteModal">
-                Eliminar Cuenta
-            </button>
-        </form>
+        <!-- Eliminar cuenta -->
+<div class="mt-4 text-center">
+  <button type="button" class="btn btn-outline-danger rounded-pill" data-toggle="modal" data-target="#deleteModal">
+      Eliminar Cuenta
+  </button>
+</div>
 
 <!-- Modal de confirmación -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Confirmación de Eliminación</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-danger">Eliminar Cuenta</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <form action="delete-account.php" method="POST" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirmación de Eliminación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-danger">Eliminar Cuenta</button>
+      </div>
+    </form>
+  </div>
+</div>
+
     </div>
 </div>
 

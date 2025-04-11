@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $descripcion = mysqli_real_escape_string($conexion, $_POST['descripcion']);
     $categoria = mysqli_real_escape_string($conexion, $_POST['categoria']);
     $tarifa = mysqli_real_escape_string($conexion, $_POST['tarifa']);
+    $horarios = mysqli_real_escape_string($conexion, $_POST['horarios']);
+    $metodo_pago = mysqli_real_escape_string($conexion, $_POST['metodo_pago']);
 
     // Procesar nueva foto si se subió
     if (!empty($_FILES['foto']['name'])) {
@@ -35,8 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Actualizar campos restantes
     $query = "UPDATE SolicitudTrabajo 
-              SET titulo = '$titulo', descripcion = '$descripcion', categoria = '$categoria', tarifa = '$tarifa' 
+              SET titulo = '$titulo', descripcion = '$descripcion', categoria = '$categoria', tarifa = '$tarifa',
+                  horarios = '$horarios', metodo_pago = '$metodo_pago'
               WHERE id_solicitud_trabajo = '$id_solicitud' AND id_profesional = '$profesional_id'";
+
     $result = mysqli_query($conexion, $query);
 
     if ($result) {

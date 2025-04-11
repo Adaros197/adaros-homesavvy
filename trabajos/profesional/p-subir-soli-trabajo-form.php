@@ -5,56 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Solicitud de Trabajo - Profesional</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         @font-face {
             font-family: nexa;
             src: url('../../assets/fonts/title.ttf');
         }
+
         body {
             font-family: nexa;
         }
+
+        .card-form {
+            border-radius: 20px !important;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: none;
+            background-color: white;
+        }
+
+        .card-form h1 {
+            font-weight: bold;
+            color: #a2a2f4;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #a2a2f4;
+        }
+
+        .btn-primary {
+            background-color: #a2a2f4 !important;
+            border-color: #a2a2f4 !important;
+            border-radius: 20px !important;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #8282d4 !important;
+            border-color: #8282d4 !important;
+        }
     </style>
+
     <link rel="stylesheet" href="../../includes/footer-styles.css">
 </head>
 <body>
     <?php include '../../includes/navbar-profesional.php'; ?>
-    <div class="container mt-5">
-        <h1 class="mb-4" style="color: #a2a2f4;">Subir Solicitud de Trabajo</h1>
-        <form action="<?php echo basename($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="titulo" class="form-label" style="font-family: nexa;">Título:</label>
-                <input type="text" id="titulo" name="titulo" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="descripcion" class="form-label" style="font-family: nexa;">Descripción:</label>
-                <textarea id="descripcion" name="descripcion" class="form-control" required></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="categoria" class="form-label" style="font-family: nexa;">Categoría:</label>
-                <input type="text" id="categoria" name="categoria" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="foto" class="form-label" style="font-family: nexa;">Foto (opcional):</label>
-                <input type="file" id="foto" name="foto" class="form-control" accept="image/*">
-            </div>
-            <div class="mb-3">
-                <label for="horarios" class="form-label" style="font-family: nexa;">Horarios Preferidos:</label>
-                <input type="text" id="horarios" name="horarios" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="metodo_pago" class="form-label" style="font-family: nexa;">Método de Pago:</label>
-                <select id="metodo_pago" name="metodo_pago" class="form-control" required>
-                    <option value="efectivo">Efectivo</option>
-                    <option value="tarjeta">Tarjeta de Crédito/Débito</option>
-                    <option value="transferencia">Transferencia Bancaria</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary" style="background-color: #a2a2f4; border-color: #a2a2f4; font-family: nexa;">Subir Solicitud</button>
-        </form>
+
+    <div class="container mt-5 mb-5">
+        <div class="card card-form mx-auto" style="max-width: 700px;">
+            <h1>Subir Solicitud de Trabajo</h1>
+            <form id="solicitud-form" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">Título:</label>
+                    <input type="text" id="titulo" name="titulo" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="categoria" class="form-label">Categoría:</label>
+                    <input type="text" id="categoria" name="categoria" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="tarifa" class="form-label">Tarifa:</label>
+                    <input type="number" id="tarifa" name="tarifa" class="form-control" min="0" step="0.01" placeholder="Ej. 500.00" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="foto" class="form-label">Foto (opcional):</label>
+                    <input type="file" id="foto" name="foto" class="form-control" accept="image/*">
+                </div>
+                <div class="mb-3">
+                    <label for="horarios" class="form-label">Horarios Preferidos:</label>
+                    <input type="text" id="horarios" name="horarios" class="form-control" required>
+                </div>
+                <div class="mb-4">
+                    <label for="metodo_pago" class="form-label">Método de Pago:</label>
+                    <select id="metodo_pago" name="metodo_pago" class="form-control" required>
+                        <option value="">Seleccione una opción</option>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+                        <option value="transferencia">Transferencia Bancaria</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Subir Solicitud</button>
+            </form>
+        </div>
     </div>
+
+    <script>
+document.getElementById("solicitud-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch("p-subir-soli-trabajo.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Solicitud subida!',
+                text: data.message,
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+            });
+
+            form.reset();
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Ups...',
+                text: data.message
+            });
+        }
+    })
+    .catch(err => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo subir la solicitud.'
+        });
+        console.error(err);
+    });
+});
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <?php include '../../includes/footer-profesional.php'; ?>
 </body>
 </html>

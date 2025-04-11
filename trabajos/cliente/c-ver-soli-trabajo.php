@@ -10,14 +10,30 @@ if (!isset($_SESSION['cliente_id'])) {
     exit;
 }
 
-$categoria = isset($_GET['categoria']) && $_GET['categoria'] !== "todas" ? mysqli_real_escape_string($conexion, $_GET['categoria']) : null;
+$cliente_id = $_SESSION['cliente_id'];
+$categoria = isset($_GET['categoria']) && $_GET['categoria'] !== "todas"
+    ? mysqli_real_escape_string($conexion, $_GET['categoria'])
+    : null;
 
-// Consultar solicitudes de trabajo
-$query = "SELECT id_solicitud_trabajo, titulo, descripcion, categoria, tarifa, foto 
-          FROM SolicitudTrabajo";
+// Construir consulta principal
+$query = "SELECT st.id_solicitud_trabajo, st.titulo, st.descripcion, st.categoria, st.tarifa, st.foto, st.fecha_creacion,
+                 p.nombre AS nombre_usuario, p.foto_perfil
+          FROM SolicitudTrabajo st
+          JOIN Profesional p ON st.id_profesional = p.id_profesional
+          WHERE st.estado = 'activa' 
+            AND st.id_solicitud_trabajo NOT IN (
+                SELECT id_solicitud_trabajo 
+                FROM PeticionTrabajo 
+                WHERE id_cliente = '$cliente_id'
+            )";
+
+
 if ($categoria) {
-    $query .= " WHERE categoria = '$categoria'";
+    $query .= " AND st.categoria = '$categoria'";
 }
+
+$query .= " ORDER BY st.fecha_creacion DESC";
+
 $result = mysqli_query($conexion, $query);
 
 if ($result) {

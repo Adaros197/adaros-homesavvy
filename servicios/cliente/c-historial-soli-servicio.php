@@ -14,7 +14,7 @@ if (!isset($_SESSION['cliente_id'])) {
 $cliente_id = $_SESSION['cliente_id'];
 
 // Obtener las solicitudes del cliente
-$query = "SELECT id_solicitud_servicio, titulo, descripcion, foto, horarios, metodo_pago, estado 
+$query = "SELECT id_solicitud_servicio, titulo, descripcion, foto, horarios, metodo_pago, estado, categoria 
           FROM SolicitudServicio 
           WHERE id_cliente = '$cliente_id'";
 $result = mysqli_query($conexion, $query);

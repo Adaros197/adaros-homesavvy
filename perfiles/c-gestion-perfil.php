@@ -168,7 +168,9 @@
 
         <!-- Cerrar sesión -->
         <form action="../auth/logout.php" method="POST" class="mt-4 text-center">
-          <button type="submit" class="btn cerrar col-12" style="font-family: nexa;">Cerrar Sesión</button>
+          <button type="submit" class="btn cerrar col-12" style="font-family: nexa;">
+            <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
+          </button>
         </form>
       </div>
     </div>

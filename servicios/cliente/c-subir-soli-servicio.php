@@ -16,12 +16,13 @@ $cliente_id = $_SESSION['cliente_id'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $titulo = mysqli_real_escape_string($conexion, $_POST['titulo']);
     $descripcion = mysqli_real_escape_string($conexion, $_POST['descripcion']);
+    $categoria = mysqli_real_escape_string($conexion, $_POST['categoria']); // 🔹 Agregado
     $horarios = mysqli_real_escape_string($conexion, $_POST['horarios']);
     $metodo_pago = mysqli_real_escape_string($conexion, $_POST['metodo_pago']);
 
-    // Insertar la solicitud en la base de datos
-    $query = "INSERT INTO SolicitudServicio (id_cliente, titulo, descripcion, horarios, metodo_pago) 
-              VALUES ('$cliente_id', '$titulo', '$descripcion', '$horarios', '$metodo_pago')";
+    // Insertar la solicitud en la base de datos incluyendo categoría
+    $query = "INSERT INTO SolicitudServicio (id_cliente, titulo, descripcion, categoria, horarios, metodo_pago) 
+              VALUES ('$cliente_id', '$titulo', '$descripcion', '$categoria', '$horarios', '$metodo_pago')";
     $result = mysqli_query($conexion, $query);
 
     if ($result) {
